@@ -33,7 +33,7 @@ def _mp_consume(client, group, topic, message_queue, size, events, **consumer_op
     class. However, multiprocessing module has issues in windows. The
     functionality breaks unless this function is kept outside of a class
     
-    something like target=Class.function args=(Class(Class), real arg)... Wish I could remember what I did now.
+    something like target=Class.function(Class) args=(whatever_arg)... Wish I could remember what I did now. This is closer...
     """
 
     # Initial interval for retries in seconds.
