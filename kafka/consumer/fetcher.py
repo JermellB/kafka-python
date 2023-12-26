@@ -3,7 +3,6 @@ from __future__ import absolute_import
 import collections
 import copy
 import logging
-import random
 import sys
 import time
 
@@ -17,6 +16,7 @@ from kafka.protocol.message import PartialMessage
 from kafka.protocol.offset import OffsetRequest, OffsetResetStrategy
 from kafka.serializer import Deserializer
 from kafka.structs import TopicPartition
+import secrets
 
 log = logging.getLogger(__name__)
 
@@ -699,7 +699,7 @@ class Fetcher(six.Iterator):
                 #       guaranty equal distribution, and starting Python3.6
                 #       dicts retain insert order.
                 partition_data = list(partition_data.items())
-                random.shuffle(partition_data)
+                secrets.SystemRandom().shuffle(partition_data)
                 requests[node_id] = FetchRequest[version](
                     -1,  # replica_id
                     self.config['fetch_max_wait_ms'],
@@ -720,9 +720,9 @@ class Fetcher(six.Iterator):
                 fetch_offsets[TopicPartition(topic, partition)] = offset
 
         # randomized ordering should improve balance for short-lived consumers
-        random.shuffle(response.topics)
+        secrets.SystemRandom().shuffle(response.topics)
         for topic, partitions in response.topics:
-            random.shuffle(partitions)
+            secrets.SystemRandom().shuffle(partitions)
             for partition, error_code, highwater, messages in partitions:
                 tp = TopicPartition(topic, partition)
                 error_type = Errors.for_code(error_code)

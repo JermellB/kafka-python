@@ -1,8 +1,7 @@
 from __future__ import absolute_import
 
-import random
-
 from .hashed import murmur2
+import secrets
 
 
 class DefaultPartitioner(object):
@@ -23,8 +22,8 @@ class DefaultPartitioner(object):
         """
         if key is None:
             if available:
-                return random.choice(available)
-            return random.choice(all_partitions)
+                return secrets.SystemRandom().choice(available)
+            return secrets.SystemRandom().choice(all_partitions)
 
         idx = murmur2(key)
         idx &= 0x7fffffff
