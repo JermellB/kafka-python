@@ -908,7 +908,7 @@ class DelayedTaskQueue(object):
         entry[-1] = 'REMOVED'
 
     def _drop_removed(self):
-        while self._tasks and self._tasks[0][-1] is 'REMOVED':
+        while self._tasks and self._tasks[0][-1] == 'REMOVED':
             at, count, task = heapq.heappop(self._tasks)
 
     def _pop_next(self):
@@ -916,7 +916,7 @@ class DelayedTaskQueue(object):
         if not self._tasks:
             raise KeyError('pop from an empty DelayedTaskQueue')
         _, _, maybe_task = heapq.heappop(self._tasks)
-        if maybe_task is 'REMOVED':
+        if maybe_task == 'REMOVED':
             raise ValueError('popped a removed tasks from queue - bug')
         else:
             task, future = maybe_task
