@@ -633,7 +633,7 @@ class KafkaClient(object):
                 return 0
             return len(self._conns[node_id].in_flight_requests)
         else:
-            return sum([len(conn.in_flight_requests) for conn in self._conns.values()])
+            return sum(len(conn.in_flight_requests) for conn in self._conns.values())
 
     def least_loaded_node(self):
         """Choose the node with fewest outstanding requests, with fallbacks.

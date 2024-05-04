@@ -661,7 +661,7 @@ class KafkaConsumer(six.Iterator):
         Arguments:
             *partitions (TopicPartition): Partitions to pause.
         """
-        if not all([isinstance(p, TopicPartition) for p in partitions]):
+        if not all(isinstance(p, TopicPartition) for p in partitions):
             raise TypeError('partitions must be TopicPartition namedtuples')
         for partition in partitions:
             log.debug("Pausing partition %s", partition)
@@ -682,7 +682,7 @@ class KafkaConsumer(six.Iterator):
         Arguments:
             *partitions (TopicPartition): Partitions to resume.
         """
-        if not all([isinstance(p, TopicPartition) for p in partitions]):
+        if not all(isinstance(p, TopicPartition) for p in partitions):
             raise TypeError('partitions must be TopicPartition namedtuples')
         for partition in partitions:
             log.debug("Resuming partition %s", partition)
@@ -725,7 +725,7 @@ class KafkaConsumer(six.Iterator):
             AssertionError: If any partition is not currently assigned, or if
                 no partitions are assigned.
         """
-        if not all([isinstance(p, TopicPartition) for p in partitions]):
+        if not all(isinstance(p, TopicPartition) for p in partitions):
             raise TypeError('partitions must be TopicPartition namedtuples')
         if not partitions:
             partitions = self._subscription.assigned_partitions()
@@ -749,7 +749,7 @@ class KafkaConsumer(six.Iterator):
             AssertionError: If any partition is not currently assigned, or if
                 no partitions are assigned.
         """
-        if not all([isinstance(p, TopicPartition) for p in partitions]):
+        if not all(isinstance(p, TopicPartition) for p in partitions):
             raise TypeError('partitions must be TopicPartition namedtuples')
         if not partitions:
             partitions = self._subscription.assigned_partitions()
