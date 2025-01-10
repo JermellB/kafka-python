@@ -5,8 +5,8 @@ import functools
 import heapq
 import itertools
 import logging
-import random
 import threading
+import secrets
 
 # selectors in stdlib as of py3.4
 try:
@@ -649,7 +649,7 @@ class KafkaClient(object):
             node_id or None if no suitable node was found
         """
         nodes = [broker.nodeId for broker in self.cluster.brokers()]
-        random.shuffle(nodes)
+        secrets.SystemRandom().shuffle(nodes)
 
         inflight = float('inf')
         found = None
