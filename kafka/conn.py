@@ -5,7 +5,6 @@ import copy
 import errno
 import logging
 import io
-from random import shuffle
 import socket
 import time
 import traceback
@@ -21,6 +20,7 @@ from kafka.protocol.commit import GroupCoordinatorResponse
 from kafka.protocol.metadata import MetadataRequest
 from kafka.protocol.types import Int32
 from kafka.version import __version__
+import secrets
 
 
 if six.PY2:
@@ -1108,6 +1108,6 @@ def collect_hosts(hosts, randomize=True):
         result.append((host, port, afi))
 
     if randomize:
-        shuffle(result)
+        secrets.SystemRandom().shuffle(result)
 
     return result
