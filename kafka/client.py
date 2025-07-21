@@ -4,7 +4,6 @@ import collections
 import copy
 import functools
 import logging
-import random
 import time
 import select
 
@@ -26,6 +25,7 @@ from kafka.protocol import KafkaProtocol
 # this is not exposed in top-level imports yet,
 # due to conflicts with legacy SimpleConsumer / SimpleProducer usage
 from kafka.client_async import KafkaClient
+import secrets
 
 
 log = logging.getLogger(__name__)
@@ -161,7 +161,7 @@ class SimpleClient(object):
 
         hosts.update(self.hosts)
         hosts = list(hosts)
-        random.shuffle(hosts)
+        secrets.SystemRandom().shuffle(hosts)
 
         for (host, port, afi) in hosts:
             try:
